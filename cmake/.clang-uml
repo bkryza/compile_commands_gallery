@@ -1,0 +1,12 @@
+# Change to directory where compile_commands.json is
+compilation_database_dir: debug
+# Change to directory where diagram should be written
+output_directory: docs/diagrams
+diagrams:
+  hello_class_diagram:
+    type: class
+    glob:
+      - src/*.cc
+    include:
+      paths:
+        - src

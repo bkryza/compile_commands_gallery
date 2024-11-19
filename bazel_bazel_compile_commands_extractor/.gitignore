@@ -1,0 +1,11 @@
+*
+!*/
+!.gitignore
+!.clang-uml
+!.clang-tidy
+!src/hello.cc
+!src/hello.h
+!BUILD
+!MODULE.bazel
+!WORKSPACE
+
