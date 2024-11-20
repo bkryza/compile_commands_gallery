@@ -2,7 +2,7 @@
 
 #include "hello.h"
 
-int main() {
+auto main() -> int {
     Hello h;
     std::cout << h.hello() << '\n';
     return 0;
