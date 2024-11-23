@@ -1,0 +1,4 @@
+env = Environment(COMPILATIONDB_USE_ABSPATH=True)
+env.Tool('compilation_db')
+env.CompilationDatabase()
+env.Program('src/hello.cc')

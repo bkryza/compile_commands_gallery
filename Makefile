@@ -1,4 +1,4 @@
-.PHONY: all cmake xmake make_bear make_compile_flags bazel_bazel_compile_commands_extractor b2 buck2
+.PHONY: all cmake xmake make_bear make_compile_flags bazel_bazel_compile_commands_extractor b2 buck2 scons
 
 CLANG_TIDY_BIN ?= clang-tidy-18
 CLANG_UML_BIN ?= ~/devel/clang-uml/release/src/clang-uml
@@ -47,7 +47,7 @@ bazel_bazel_compile_commands_extractor:
 b2:
 	$(call print_header,b2)
 	cd b2 && \
-	b2 --command-database=json  && \
+	b2 --command-database=json && \
 	$(CLANG_TIDY_BIN) src/hello.cc && \
 	$(CLANG_UML_BIN)
 
@@ -60,6 +60,13 @@ buck2:
 	$(CLANG_TIDY_BIN) src/hello.cc && \
 	$(CLANG_UML_BIN)
 
+scons:
+	$(call print_header,scons)
+	cd scons && \
+	scons compile_commands.json && \
+	$(CLANG_TIDY_BIN) src/hello.cc && \
+	$(CLANG_UML_BIN)
 
 
-all: cmake xmake make_bear make_compile_flags bazel_bazel_compile_commands_extractor b2
+
+all: cmake xmake make_bear make_compile_flags bazel_bazel_compile_commands_extractor b2 buck2 scons
