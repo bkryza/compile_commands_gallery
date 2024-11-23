@@ -1,4 +1,4 @@
-.PHONY: all cmake clang_mj xmake make_bear make_compile_flags bazel_bazel_compile_commands_extractor b2 buck2 scons mesonbuild premake_premake_export_compile_commands premake_ecc
+.PHONY: all cmake clang_mj xmake make_bear make_compiledb make_compile_flags bazel_bazel_compile_commands_extractor b2 buck2 scons mesonbuild premake_premake_export_compile_commands premake_ecc
 
 CLANG_TIDY_BIN ?= clang-tidy-18
 CLANG_UML_BIN ?= ~/devel/clang-uml/debug/src/clang-uml
@@ -34,11 +34,20 @@ xmake:
 	$(CLANG_UML_BIN)
 
 make_bear:
-	$(call print_header,Bear with Makefile)
+	$(call print_header,make with Bear)
 	cd make_bear && \
 	make clean && \
 	bear --version && \
 	bear -- make hello && \
+	$(CLANG_TIDY_BIN) src/hello.cc && \
+	$(CLANG_UML_BIN)
+
+make_compiledb:
+	$(call print_header,make with compiledb)
+	cd make_compiledb && \
+	make clean && \
+	pip3 list | grep compiledb && \
+	compiledb make && \
 	$(CLANG_TIDY_BIN) src/hello.cc && \
 	$(CLANG_UML_BIN)
 
@@ -109,4 +118,4 @@ premake_ecc:
 	$(CLANG_TIDY_BIN) src/hello.cc && \
 	$(CLANG_UML_BIN)
 
-all: cmake clang_mj xmake make_bear make_compile_flags bazel_bazel_compile_commands_extractor b2 buck2 scons mesonbuild premake_premake_export_compile_commands premake_ecc
+all: cmake clang_mj xmake make_bear make_compiledb make_compile_flags bazel_bazel_compile_commands_extractor b2 buck2 scons mesonbuild premake_premake_export_compile_commands premake_ecc
