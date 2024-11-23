@@ -1,0 +1,7 @@
+cxx_binary(
+    name = "hello",
+    srcs = ["src/hello.cc"],
+    headers = ["src/hello.h"],
+    link_style = "static",
+)
+

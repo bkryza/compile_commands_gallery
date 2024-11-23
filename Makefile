@@ -1,4 +1,4 @@
-.PHONY: all cmake xmake make_bear make_compile_flags bazel_bazel_compile_commands_extractor b2
+.PHONY: all cmake xmake make_bear make_compile_flags bazel_bazel_compile_commands_extractor b2 buck2
 
 CLANG_TIDY_BIN ?= clang-tidy-18
 CLANG_UML_BIN ?= ~/devel/clang-uml/release/src/clang-uml
@@ -6,7 +6,7 @@ CLANG_UML_BIN ?= ~/devel/clang-uml/release/src/clang-uml
 define print_header
     @echo "============================"
     @echo " $(1) "
-	@echo "============================"
+    @echo "============================"
 endef
 
 cmake:
@@ -50,6 +50,16 @@ b2:
 	b2 --command-database=json  && \
 	$(CLANG_TIDY_BIN) src/hello.cc && \
 	$(CLANG_UML_BIN)
+
+buck2:
+	$(call print_header,buck2)
+	cd buck2 && \
+	buck2 build "//:hello[compilation-database]" && \
+	COMP_DB=$$(buck2 targets --show-json-output "//:hello[compilation-database]" | jq -r '."root//:hello[compilation-database]"'); cp $$COMP_DB . && \
+	jq '.[] |= (.directory = "${PWD}/buck2")' compile_commands.json | sponge compile_commands.json && \
+	$(CLANG_TIDY_BIN) src/hello.cc && \
+	$(CLANG_UML_BIN)
+
 
 
 all: cmake xmake make_bear make_compile_flags bazel_bazel_compile_commands_extractor b2

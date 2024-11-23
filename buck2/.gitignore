@@ -1,0 +1,14 @@
+*
+!*/
+buck-out
+toolchains
+docs
+compile_commands.json
+!.gitignore
+!.clang-uml
+!.clang-tidy
+!src/hello.h
+!src/hello.cc
+!BUCK
+!.buckconfig
+!.buckroot
