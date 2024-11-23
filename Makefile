@@ -1,7 +1,7 @@
-.PHONY: all cmake xmake make_bear make_compile_flags bazel_bazel_compile_commands_extractor b2 buck2 scons
+.PHONY: all cmake xmake make_bear make_compile_flags bazel_bazel_compile_commands_extractor b2 buck2 scons mesonbuild
 
 CLANG_TIDY_BIN ?= clang-tidy-18
-CLANG_UML_BIN ?= ~/devel/clang-uml/release/src/clang-uml
+CLANG_UML_BIN ?= ~/devel/clang-uml/debug/src/clang-uml
 
 define print_header
     @echo "============================"
@@ -67,6 +67,12 @@ scons:
 	$(CLANG_TIDY_BIN) src/hello.cc && \
 	$(CLANG_UML_BIN)
 
+mesonbuild:
+	$(call print_header, mesonbuild)
+	cd mesonbuild && \
+	meson setup builddir && \
+	$(CLANG_TIDY_BIN) -p builddir src/hello.cc && \
+	$(CLANG_UML_BIN) -d builddir
 
 
-all: cmake xmake make_bear make_compile_flags bazel_bazel_compile_commands_extractor b2 buck2 scons
+all: cmake xmake make_bear make_compile_flags bazel_bazel_compile_commands_extractor b2 buck2 scons mesonbuild
