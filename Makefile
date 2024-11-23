@@ -1,4 +1,4 @@
-.PHONY: all cmake xmake make_bear make_compile_flags bazel_bazel_compile_commands_extractor b2 buck2 scons mesonbuild premake_premake_export_compile_commands premake_ecc
+.PHONY: all cmake clang_mj xmake make_bear make_compile_flags bazel_bazel_compile_commands_extractor b2 buck2 scons mesonbuild premake_premake_export_compile_commands premake_ecc
 
 CLANG_TIDY_BIN ?= clang-tidy-18
 CLANG_UML_BIN ?= ~/devel/clang-uml/debug/src/clang-uml
@@ -14,6 +14,14 @@ cmake:
 	cd cmake && \
 	cmake --version && \
 	cmake -S . -B debug && \
+	$(CLANG_TIDY_BIN) -p debug src/hello.cc && \
+	$(CLANG_UML_BIN)
+
+clang_mj:
+	$(call print_header,clang++ with -MJ flag)
+	cd clang_mj && \
+	clang++ -MJ hello.o.json -Wall -std=c++17 -Isrc -o hello.o -c src/hello.cc && \
+	cat hello.o.json | sed 's/},$$/}/' | jq -s . | sponge compile_commands.json && \
 	$(CLANG_TIDY_BIN) -p debug src/hello.cc && \
 	$(CLANG_UML_BIN)
 
@@ -101,4 +109,4 @@ premake_ecc:
 	$(CLANG_TIDY_BIN) src/hello.cc && \
 	$(CLANG_UML_BIN)
 
-all: cmake xmake make_bear make_compile_flags bazel_bazel_compile_commands_extractor b2 buck2 scons mesonbuild premake_premake_export_compile_commands premake_ecc
+all: cmake clang_mj xmake make_bear make_compile_flags bazel_bazel_compile_commands_extractor b2 buck2 scons mesonbuild premake_premake_export_compile_commands premake_ecc
