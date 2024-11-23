@@ -1,0 +1,11 @@
+*
+!*/
+docs
+compile_commands
+export-compile-commands
+!.gitignore
+!.clang-uml
+!.clang-tidy
+!src/hello.h
+!src/hello.cc
+!premake5.lua
