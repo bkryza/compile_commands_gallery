@@ -8,3 +8,4 @@ docs.
 !src/hello.h
 !src/hello.cc
 !meson.build
+!Makefile.ccj

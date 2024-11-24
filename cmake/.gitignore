@@ -6,4 +6,5 @@
 !src/hello.h
 !src/hello.cc
 !CMakeLists.txt
+!Makefile.ccj
 

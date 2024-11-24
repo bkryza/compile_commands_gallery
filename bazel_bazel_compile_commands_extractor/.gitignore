@@ -8,4 +8,5 @@
 !BUILD
 !MODULE.bazel
 !WORKSPACE
+!Makefile.ccj
 

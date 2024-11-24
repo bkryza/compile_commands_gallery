@@ -6,4 +6,5 @@
 !src/hello.h
 !src/hello.cc
 !Jamfile
+!Makefile.ccj
 

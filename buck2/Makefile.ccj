@@ -1,0 +1,13 @@
+CLANG_TIDY_BIN ?= clang-tidy-18
+CLANG_UML_BIN ?= ~/devel/clang-uml/debug/src/clang-uml
+
+.DEFAULT_GOAL := all
+.PHONY: all
+
+all:
+	buck2 --version && \
+	buck2 build "//:hello[compilation-database]" && \
+	COMP_DB=$$(buck2 targets --show-json-output "//:hello[compilation-database]" | jq -r '."root//:hello[compilation-database]"'); cp $$COMP_DB . && \
+	jq '.[] |= (.directory = "${PWD}/buck2")' compile_commands.json | sponge compile_commands.json && \
+	$(CLANG_TIDY_BIN) src/hello.cc && \
+	$(CLANG_UML_BIN)

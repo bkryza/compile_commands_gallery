@@ -6,4 +6,4 @@
 !src/hello.h
 !src/hello.cc
 !xmake.lua
-
+!Makefile.ccj

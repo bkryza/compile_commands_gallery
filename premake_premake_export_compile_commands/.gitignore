@@ -1,5 +1,6 @@
 *
 !*/
+diagrams
 docs
 compile_commands
 export-compile-commands
@@ -9,3 +10,4 @@ export-compile-commands
 !src/hello.h
 !src/hello.cc
 !premake5.lua
+!Makefile.ccj

@@ -1,0 +1,11 @@
+CLANG_TIDY_BIN ?= clang-tidy-18
+CLANG_UML_BIN ?= ~/devel/clang-uml/debug/src/clang-uml
+
+.DEFAULT_GOAL := all
+.PHONY: all
+
+all:
+	cmake --version && \
+	cmake -S . -B debug && \
+	$(CLANG_TIDY_BIN) -p debug src/hello.cc && \
+	$(CLANG_UML_BIN)

@@ -2,6 +2,7 @@
 !*/
 buck-out
 toolchains
+diagrams
 docs
 compile_commands.json
 !.gitignore
@@ -12,3 +13,4 @@ compile_commands.json
 !BUCK
 !.buckconfig
 !.buckroot
+!Makefile.ccj

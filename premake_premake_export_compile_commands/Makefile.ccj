@@ -1,0 +1,13 @@
+CLANG_TIDY_BIN ?= clang-tidy-18
+CLANG_UML_BIN ?= ~/devel/clang-uml/debug/src/clang-uml
+
+.DEFAULT_GOAL := all
+.PHONY: all
+
+all:
+	premake5 --version && \
+	git clone https://github.com/tarruda/premake-export-compile-commands export-compile-commands || true && \
+	premake5 export-compile-commands && \
+	cp compile_commands/debug.json compile_commands.json && \
+	$(CLANG_TIDY_BIN) src/hello.cc && \
+	$(CLANG_UML_BIN)

@@ -1,6 +1,7 @@
 *
 !*/
 docs
+diagrams
 compile_commands.json
 !.gitignore
 !.clang-uml
@@ -8,3 +9,4 @@ compile_commands.json
 !src/hello.h
 !src/hello.cc
 !SConstruct
+!Makefile.ccj

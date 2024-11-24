@@ -1,0 +1,12 @@
+CLANG_TIDY_BIN ?= clang-tidy-18
+CLANG_UML_BIN ?= ~/devel/clang-uml/debug/src/clang-uml
+
+.DEFAULT_GOAL := all
+.PHONY: all
+
+all:
+	clang++ --version && \
+	clang++ -MJ hello.o.json -Wall -std=c++17 -Isrc -o hello.o -c src/hello.cc && \
+	cat hello.o.json | sed 's/},$$/}/' | jq -s . | sponge compile_commands.json && \
+	$(CLANG_TIDY_BIN) src/hello.cc && \
+	$(CLANG_UML_BIN)
