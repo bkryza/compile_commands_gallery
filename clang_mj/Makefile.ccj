@@ -1,12 +1,22 @@
 CLANG_TIDY_BIN ?= clang-tidy-18
 CLANG_UML_BIN ?= ~/devel/clang-uml/debug/src/clang-uml
+CLANG_UML_OPTS ?= 
+
+OS_UNAME := $(shell uname -s)
+ifeq ($(OS_UNAME),Linux)
+  CLANGXX_BIN ?= clang++
+	SDKROOT ?= 
+else ifeq ($(OS_UNAME),Darwin)
+  CLANGXX_BIN ?= /opt/homebrew/opt/llvm/bin/clang++
+	SDKROOT ?= $(shell xcrun --show-sdk-path) 
+endif
 
 .DEFAULT_GOAL := all
 .PHONY: all
 
 all:
-	clang++ --version && \
-	clang++ -MJ hello.o.json -Wall -std=c++17 -Isrc -o hello.o -c src/hello.cc && \
+	$(CLANGXX_BIN) --version && \
+	$(CLANGXX_BIN) -MJ hello.o.json -Wall -std=c++17 -Isrc -o hello.o -c src/hello.cc && \
 	cat hello.o.json | sed 's/},$$/}/' | jq -s . | sponge compile_commands.json && \
-	$(CLANG_TIDY_BIN) src/hello.cc && \
-	$(CLANG_UML_BIN)
+	SDKROOT=$(SDKROOT) $(CLANG_TIDY_BIN) src/hello.cc && \
+	$(CLANG_UML_BIN) $(CLANG_UML_OPTS)

@@ -1,5 +1,13 @@
 CLANG_TIDY_BIN ?= clang-tidy-18
 CLANG_UML_BIN ?= ~/devel/clang-uml/debug/src/clang-uml
+CLANG_UML_OPTS ?= 
+
+OS_UNAME := $(shell uname -s)
+ifeq ($(OS_UNAME),Linux)
+	SDKROOT ?= 
+else ifeq ($(OS_UNAME),Darwin)
+	SDKROOT ?= $(shell xcrun --show-sdk-path) 
+endif
 
 .DEFAULT_GOAL := all
 .PHONY: all
@@ -7,8 +15,8 @@ CLANG_UML_BIN ?= ~/devel/clang-uml/debug/src/clang-uml
 all:
 	buck2 --version && \
 	buck2 init && \
-	buck2 build "//:hello[compilation-database]" && \
+	SDKROOT=$(SDKROOT) buck2 build "//:hello[compilation-database]" && \
 	COMP_DB=$$(buck2 targets --show-json-output "//:hello[compilation-database]" | jq -r '."root//:hello[compilation-database]"'); cp $$COMP_DB . && \
 	jq '.[] |= (.directory = "${PWD}/buck2")' compile_commands.json | sponge compile_commands.json && \
-	$(CLANG_TIDY_BIN) src/hello.cc && \
-	$(CLANG_UML_BIN)
+	SDKROOT=$(SDKROOT) $(CLANG_TIDY_BIN) src/hello.cc && \
+	$(CLANG_UML_BIN) $(CLANG_UML_OPTS)

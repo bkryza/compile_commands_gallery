@@ -1,1 +1,1 @@
-exe hello : src/hello.cc ;
+exe hello : src/hello.cc : <cxxstd>17 ;

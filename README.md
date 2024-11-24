@@ -30,7 +30,9 @@ The list of examples currently contains:
 
 # Generating compile commands
 The project contains a top-level [Makefile](./Makefile), which can be used to generate compile commands for specific
-build system and plugin combination, e.g.:
+build system and plugin combination.
+
+## Linux
 
 ```console
 $ make cmake
@@ -44,6 +46,14 @@ the tool executable to the `true` command, e.g.:
 
 ```console
 $ CLANG_UML_BIN=true make make_bear
+```
+
+## macos
+
+On macos, you might want to use Homebrew Clang instead XCode, in that case run the test like this:
+
+```console
+CC=/opt/homebrew/opt/llvm/bin/clang CXX=/opt/homebrew/opt/llvm/bin/clang++ CLANG_TIDY_BIN=/opt/homebrew/Cellar/llvm/19.1.3/bin/clang-tidy make xmake 
 ```
 
 # License

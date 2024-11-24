@@ -20,8 +20,18 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-CLANG_TIDY_BIN ?= clang-tidy-18
-CLANG_UML_BIN ?= ~/devel/clang-uml/debug/src/clang-uml
+
+OS_UNAME := $(shell uname -s)
+
+ifeq ($(OS_UNAME),Linux)
+  CLANG_TIDY_BIN ?= clang-tidy-18
+  CLANG_UML_BIN ?= ~/devel/clang-uml/debug/src/clang-uml
+	CLANG_UML_OPTS ?= 
+else ifeq ($(OS_UNAME),Darwin)
+  CLANG_TIDY_BIN ?= /opt/homebrew/Cellar/llvm/19.1.3/bin/clang-tidy
+  CLANG_UML_BIN ?= ~/devel/clang-uml/debug/src/clang-uml
+	CLANG_UML_OPTS ?= "--query-driver ."
+endif
 
 
 .PHONY: phony
@@ -32,7 +42,7 @@ phony:
 		echo "============================"; \
 		echo " $@ "; \
 		echo "============================"; \
-		CLANG_TIDY_BIN=$(CLANG_TIDY_BIN) CLANG_UML_BIN=$(CLANG_UML_BIN) make -C $@ -f Makefile.ccj; \
+		CLANG_TIDY_BIN=$(CLANG_TIDY_BIN) CLANG_UML_BIN=$(CLANG_UML_BIN) CLANG_UML_OPTS=$(CLANG_UML_OPTS) make -C $@ -f Makefile.ccj; \
 	elif [ "$@" = "Makefile" ]; then \
 		true; \
 	elif [ "$@" = "all" ]; then \

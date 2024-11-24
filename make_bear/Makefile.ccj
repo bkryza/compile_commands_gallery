@@ -1,5 +1,13 @@
 CLANG_TIDY_BIN ?= clang-tidy-18
 CLANG_UML_BIN ?= ~/devel/clang-uml/debug/src/clang-uml
+CLANG_UML_OPTS ?= 
+
+OS_UNAME := $(shell uname -s)
+ifeq ($(OS_UNAME),Linux)
+	SDKROOT ?= 
+else ifeq ($(OS_UNAME),Darwin)
+	SDKROOT ?= $(shell xcrun --show-sdk-path) 
+endif
 
 .DEFAULT_GOAL := all
 .PHONY: all
@@ -8,5 +16,5 @@ all:
 	make clean && \
 	bear --version && \
 	bear -- make hello && \
-	$(CLANG_TIDY_BIN) src/hello.cc && \
-	$(CLANG_UML_BIN)
+	SDKROOT=$(SDKROOT) $(CLANG_TIDY_BIN) src/hello.cc && \
+	$(CLANG_UML_BIN) $(CLANG_UML_OPTS)
