@@ -1,0 +1,11 @@
+*
+!*/
+out
+diagrams
+!.gitignore
+!.clang-uml
+!.clang-tidy
+!src/hello.h
+!src/hello.cc
+!Makefile.ccj
+!fbuild.bff

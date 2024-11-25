@@ -1,0 +1,24 @@
+.Compiler          = '/usr/bin/clang++'
+.Librarian         = '/usr/bin/clang++'
+.CompilerOptions   = '-std=c++17 -Wall -Werror -c -o %2 %1'
+.LibrarianOptions  = ''
+.Linker            = '/usr/bin/clang++'
+.LinkerOptions     = '-o %2 %1'
+
+ObjectList( 'hello-lib' )
+{
+    .CompilerInputPattern = '*.cc'
+    .CompilerInputPath  = 'src\'
+    .CompilerOutputPath = 'out\'
+}
+
+Executable('hello')
+{
+    .Libraries          = { "hello-lib" }
+    .LinkerOutput       = 'out\hello'
+}
+
+Alias('all')
+{
+    .Targets = { 'hello' }
+}

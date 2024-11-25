@@ -16,6 +16,7 @@ The list of examples currently contains:
 * [buck2](https://github.com/facebook/buck2) - [`buck2`](./buck2)
 * [Clang++ with -MJ flag](https://clang.llvm.org/docs/JSONCompilationDatabase.html#supported-systems) - [`clang_mj`](./clang_mj)
 * [CMake](https://cmake.org/) - [`cmake`](./cmake)
+* [FASTBuild](https://www.fastbuild.org) - [`fastbuild`](./fastbuild)
 * [make]()
   * [Bear](https://github.com/rizsotto/Bear) - [`make_bear`](./make_bear)
   * [compiledb](https://github.com/nickdiego/compiledb) - [`make_compiledb`](./make_compiledb)
