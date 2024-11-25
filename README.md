@@ -26,6 +26,7 @@ The list of examples currently contains:
   * [premake-ecc](https://github.com/MattBystrin/premake-ecc) - [`premake_ecc`](./premake_ecc)
   * [premake-export-compile-commands](https://github.com/tarruda/premake-export-compile-commands) - [`premake_premake_export_compile_commands`](./premake_premake_export_compile_commands)
 * [SCons](https://scons.org/) - [`scons`](./scons)
+* [Waf](https://waf.io/) - [`waf`](./waf)
 * [xmake](https://xmake.io) - [`xmake`](./xmake)
 
 
