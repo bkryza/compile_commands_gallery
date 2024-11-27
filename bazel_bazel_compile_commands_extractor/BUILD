@@ -3,6 +3,7 @@ load("@hedron_compile_commands//:refresh_compile_commands.bzl", "refresh_compile
 refresh_compile_commands(
     name = "refresh_compile_commands",
     exclude_headers = "all",
+    targets = {"//:hello": ""},
     # Specify the targets of interest.
     # For example, specify a dict of targets and any flags required to build.
     #targets = {
