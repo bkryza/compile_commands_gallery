@@ -1,0 +1,18 @@
+cxx = g++
+
+cxxflags = -std=c++17 -Wall -Wextra -O2
+
+srcdir = src
+outdir = build
+
+rule compile
+  command = $cxx $cxxflags -c $in -o $out
+  description = Compiling $in
+
+rule link
+  command = $cxx $in -o $out
+  description = Linking $out
+
+build $outdir/hello.o: compile $srcdir/hello.cc
+
+build hello: link $outdir/hello.o

@@ -1,0 +1,11 @@
+*
+builddir
+docs.
+!*/
+!.gitignore
+!.clang-uml
+!.clang-tidy
+!src/hello.h
+!src/hello.cc
+!build.ninja
+!Makefile.ccj
