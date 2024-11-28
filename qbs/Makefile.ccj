@@ -1,0 +1,20 @@
+BUILD_FLAGS ?=
+CLANG_TIDY_BIN ?= clang-tidy-18
+CLANG_UML_BIN ?= ~/devel/clang-uml/debug/src/clang-uml
+CLANG_UML_OPTS ?= 
+
+OS_UNAME := $(shell uname -s)
+ifeq ($(OS_UNAME),Linux)
+	SDKROOT ?= 
+else ifeq ($(OS_UNAME),Darwin)
+	SDKROOT ?= $(shell xcrun --show-sdk-path) 
+endif
+
+.DEFAULT_GOAL := all
+.PHONY: all
+
+all:
+	qbs --version && \
+	$(BUILD_FLAGS) qbs generate --generator clangdb && \
+	SDKROOT=$(SDKROOT) $(CLANG_TIDY_BIN) -p default src/hello.cc && \
+	$(CLANG_UML_BIN) $(CLANG_UML_OPTS) -d default
