@@ -62,3 +62,7 @@ phony:
 	else \
 		echo "Unknown project: $@"; \
 	fi
+
+.PHONY: clean
+clean:
+	git clean -dfx
