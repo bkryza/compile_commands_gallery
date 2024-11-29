@@ -1,8 +1,9 @@
 include ../Makefile.ccj
 
+setup_cmd = git clone https://github.com/tarruda/premake-export-compile-commands export-compile-commands || true
+
 print_version_cmd = premake5 --version
 
 generate_compdb = \
-	git clone https://github.com/tarruda/premake-export-compile-commands export-compile-commands || true && \
 	$(BUILD_FLAGS) premake5 export-compile-commands && \
 	cp compile_commands/debug.json compile_commands.json

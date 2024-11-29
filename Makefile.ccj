@@ -29,7 +29,10 @@ run_clang_uml = $(CLANG_UML_BIN) $(CLANG_UML_OPTS) -d $(1)
 
 compdb_dir = .
 
+setup_cmd = true
+
 all:
+	$(call setup_cmd) && \
 	$(call print_version,$(print_version_cmd)) && \
 	$(call generate_compdb) && \
 	$(call print_compdb,$(compdb_dir)) && \

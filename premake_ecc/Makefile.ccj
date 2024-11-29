@@ -1,7 +1,7 @@
 include ../Makefile.ccj
 
+setup_cmd = git clone git@github.com:MattBystrin/premake-ecc.git ecc || true
+
 print_version_cmd = premake5 --version
 
-generate_compdb = \
-	git clone git@github.com:MattBystrin/premake-ecc.git ecc || true && \
-	$(BUILD_FLAGS) premake5 ecc
+generate_compdb = $(BUILD_FLAGS) premake5 ecc
