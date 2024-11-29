@@ -1,23 +1,7 @@
-BUILD_FLAGS ?=
-CLANG_TIDY_BIN ?= clang-tidy-19
-CLANG_UML_BIN ?= ~/devel/clang-uml/debug/src/clang-uml
-CLANG_UML_OPTS ?= 
+include ../Makefile.ccj
 
-OS_UNAME := $(shell uname -s)
-ifeq ($(OS_UNAME),Linux)
-  CLANGXX_BIN ?= clang++-19
-	SDKROOT ?= 
-else ifeq ($(OS_UNAME),Darwin)
-  CLANGXX_BIN ?= /opt/homebrew/opt/llvm/bin/clang++
-	SDKROOT ?= $(shell xcrun --show-sdk-path) 
-endif
+print_version_cmd = $(CLANGXX_BIN) --version
 
-.DEFAULT_GOAL := all
-.PHONY: all
-
-all:
-	$(CLANGXX_BIN) --version && \
+generate_compdb = \
 	$(CLANGXX_BIN) -MJ hello.o.json -Wall -std=c++17 -Isrc -o hello.o -c src/hello.cc && \
-	cat hello.o.json | sed 's/},$$/}/' | jq -s . | sponge compile_commands.json && \
-	SDKROOT=$(SDKROOT) $(CLANG_TIDY_BIN) src/hello.cc && \
-	$(CLANG_UML_BIN) $(CLANG_UML_OPTS)
+	cat hello.o.json | sed 's/},$$/}/' | jq -s . | sponge compile_commands.json

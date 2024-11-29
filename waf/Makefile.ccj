@@ -1,20 +1,7 @@
-BUILD_FLAGS ?=
-CLANG_TIDY_BIN ?= clang-tidy-19
-CLANG_UML_BIN ?= ~/devel/clang-uml/debug/src/clang-uml
-CLANG_UML_OPTS ?= 
+include ../Makefile.ccj
 
-OS_UNAME := $(shell uname -s)
-ifeq ($(OS_UNAME),Linux)
-	SDKROOT ?= 
-else ifeq ($(OS_UNAME),Darwin)
-	SDKROOT ?= $(shell xcrun --show-sdk-path) 
-endif
+print_version_cmd = ~/devel/waf-2.1.4/waf --version
 
-.DEFAULT_GOAL := all
-.PHONY: all
+compdb_dir = build
 
-all:
-	~/devel/waf-2.1.4/waf --version && \
-	$(BUILD_FLAGS) ~/devel/waf-2.1.4/waf configure clangdb && \
-	SDKROOT=$(SDKROOT) $(CLANG_TIDY_BIN) -p build src/hello.cc && \
-	$(CLANG_UML_BIN) $(CLANG_UML_OPTS)
+generate_compdb = $(BUILD_FLAGS) ~/devel/waf-2.1.4/waf configure clangdb

@@ -1,4 +1,4 @@
-cxx = g++
+cxx = clang++-19
 
 cxxflags = -std=c++17 -Wall -Wextra -O2
 

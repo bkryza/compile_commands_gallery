@@ -1,23 +1,9 @@
-BUILD_FLAGS ?=
-CLANG_TIDY_BIN ?= clang-tidy-19
-CLANG_UML_BIN ?= ~/devel/clang-uml/debug/src/clang-uml
-CLANG_UML_OPTS ?= 
-
-OS_UNAME := $(shell uname -s)
-ifeq ($(OS_UNAME),Linux)
-	SDKROOT ?= 
-else ifeq ($(OS_UNAME),Darwin)
-	SDKROOT ?= $(shell xcrun --show-sdk-path) 
-endif
-
-.DEFAULT_GOAL := all
-.PHONY: all
+include ../Makefile.ccj
 
 BUILD2_B=~/devel/build2-build/build2-0.18.0-a.0.20241126062707.2164f1544357/build2/b
 
-all:
-	$(BUILD2_B) --version || true && \
-	$(BUILD2_B) configure config.cxx.std=17 config.cxx=clang++-19
-	$(BUILD2_B) config.cc.compiledb=compile_commands && \
-	SDKROOT=$(SDKROOT) $(CLANG_TIDY_BIN) src/hello.cc && \
-	$(CLANG_UML_BIN) $(CLANG_UML_OPTS)
+print_version_cmd = $(BUILD2_B) --version
+
+generate_compdb = \
+	$(BUILD2_B) configure config.cxx.std=17 config.cxx=clang++-19 && \
+	$(BUILD2_B) config.cc.compiledb=compile_commands

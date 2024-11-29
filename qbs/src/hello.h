@@ -7,4 +7,4 @@ struct Hello {
     auto hello() const -> std::string_view { return "Hello, world!"; }
 };
 
-#endif
+#endif // __HELLO_H__

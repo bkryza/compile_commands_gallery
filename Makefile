@@ -25,12 +25,14 @@ OS_UNAME := $(shell uname -s)
 
 ifeq ($(OS_UNAME),Linux)
   CLANG_TIDY_BIN ?= clang-tidy-19
+  ClANG_TIDY_OPTS ?= "--quiet"
   CLANG_UML_BIN ?= ~/devel/clang-uml/debug/src/clang-uml
-	CLANG_UML_OPTS ?= 
+CLANG_UML_OPTS ?= "--quiet"
 else ifeq ($(OS_UNAME),Darwin)
   CLANG_TIDY_BIN ?= /opt/homebrew/Cellar/llvm/19.1.3/bin/clang-tidy
+  ClANG_TIDY_OPTS ?= "--quiet"
   CLANG_UML_BIN ?= ~/devel/clang-uml/debug/src/clang-uml
-	CLANG_UML_OPTS ?= "--query-driver ."
+  CLANG_UML_OPTS ?= "--quiet --query-driver ."
 endif
 
 
@@ -44,10 +46,10 @@ phony:
 
 %: phony
 	@if [ -d "$@" ]; then \
-		echo "============================"; \
+		echo "\033[0;32m============================"; \
 		echo " $@ "; \
-		echo "============================"; \
-		CLANG_TIDY_BIN=$(CLANG_TIDY_BIN) CLANG_UML_BIN=$(CLANG_UML_BIN) CLANG_UML_OPTS=$(CLANG_UML_OPTS) make -C $@ -f Makefile.ccj; \
+		echo "============================\033[0m"; \
+		CLANG_TIDY_BIN=$(CLANG_TIDY_BIN) CLANG_TIDY_OPTS=$(CLANG_TIDY_OPTS) CLANG_UML_BIN=$(CLANG_UML_BIN) CLANG_UML_OPTS=$(CLANG_UML_OPTS) make -C $@ -s -f Makefile.ccj; \
 	elif [ "$@" = "Makefile" ]; then \
 		true; \
 	elif [ "$@" = "all" ]; then \

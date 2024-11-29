@@ -1,0 +1,37 @@
+BUILD_FLAGS ?=
+CLANG_TIDY_BIN ?= clang-tidy-19
+CLANG_TIDY_OPTS ?=
+CLANG_UML_BIN ?= ~/devel/clang-uml/debug/src/clang-uml
+CLANG_UML_OPTS ?=
+
+OS_UNAME := $(shell uname -s)
+ifeq ($(OS_UNAME),Linux)
+	SDKROOT ?=
+	CLANGXX_BIN ?= clang++-19
+else ifeq ($(OS_UNAME),Darwin)
+	SDKROOT ?= $(shell xcrun --show-sdk-path)
+	CLANGXX_BIN ?= /opt/homebrew/opt/llvm/bin/clang++
+endif
+
+BASH_BLOCK_START = echo "\033[0;33m\`\`\`bash\033[0m"
+BASH_BLOCK_END = echo "\033[0;33m\`\`\`\033[0m"
+
+JSON_BLOCK_START = echo "\033[0;33m\`\`\`json"
+JSON_BLOCK_END = echo "\`\`\`\033[0m"
+
+print_version = $(BASH_BLOCK_START) && echo "$$" $(1) && $(1) || true && $(BASH_BLOCK_END)
+print_compdb = 	$(JSON_BLOCK_START) && cat $(1)/compile_commands.json && $(JSON_BLOCK_END)
+run_clang_tidy = SDKROOT=$(SDKROOT) $(CLANG_TIDY_BIN) $(CLANG_TIDY_OPTS) -p $(1) src/hello.cc
+run_clang_uml = $(CLANG_UML_BIN) $(CLANG_UML_OPTS) -d $(1)
+
+.DEFAULT_GOAL := all
+.PHONY: all
+
+compdb_dir = .
+
+all:
+	$(call print_version,$(print_version_cmd)) && \
+	$(call generate_compdb) && \
+	$(call print_compdb,$(compdb_dir)) && \
+	$(call run_clang_tidy,$(compdb_dir)) && \
+	$(call run_clang_uml,$(compdb_dir))

@@ -1,20 +1,7 @@
-BUILD_FLAGS ?=
-CLANG_TIDY_BIN ?= clang-tidy-19
-CLANG_UML_BIN ?= ~/devel/clang-uml/debug/src/clang-uml
-CLANG_UML_OPTS ?= 
+include ../Makefile.ccj
 
-OS_UNAME := $(shell uname -s)
-ifeq ($(OS_UNAME),Linux)
-	SDKROOT ?= 
-else ifeq ($(OS_UNAME),Darwin)
-	SDKROOT ?= $(shell xcrun --show-sdk-path) 
-endif
+print_version_cmd = cmake --version
 
-.DEFAULT_GOAL := all
-.PHONY: all
+compdb_dir = debug
 
-all:
-	cmake --version && \
-	$(BUILD_FLAGS) cmake -S . -B debug && \
-	SDKROOT=$(SDKROOT) $(CLANG_TIDY_BIN) -p debug src/hello.cc && \
-	$(CLANG_UML_BIN) $(CLANG_UML_OPTS)
+generate_compdb = $(BUILD_FLAGS) cmake -S . -B $(compdb_dir)

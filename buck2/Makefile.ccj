@@ -1,23 +1,9 @@
-BUILD_FLAGS ?=
-CLANG_TIDY_BIN ?= clang-tidy-19
-CLANG_UML_BIN ?= ~/devel/clang-uml/debug/src/clang-uml
-CLANG_UML_OPTS ?= 
+include ../Makefile.ccj
 
-OS_UNAME := $(shell uname -s)
-ifeq ($(OS_UNAME),Linux)
-	SDKROOT ?= 
-else ifeq ($(OS_UNAME),Darwin)
-	SDKROOT ?= $(shell xcrun --show-sdk-path) 
-endif
+print_version_cmd = buck2 --version
 
-.DEFAULT_GOAL := all
-.PHONY: all
-
-all:
-	buck2 --version && \
+generate_compdb = \
 	buck2 init && \
 	SDKROOT=$(SDKROOT) $(BUILD_FLAGS) buck2 build "//:hello[compilation-database]" && \
 	COMP_DB=$$(buck2 targets --show-json-output "//:hello[compilation-database]" | jq -r '."root//:hello[compilation-database]"'); cp $$COMP_DB . && \
-	jq '.[] |= (.directory = "${PWD}/buck2")' compile_commands.json | sponge compile_commands.json && \
-	SDKROOT=$(SDKROOT) $(CLANG_TIDY_BIN) src/hello.cc && \
-	$(CLANG_UML_BIN) $(CLANG_UML_OPTS)
+	jq '.[] |= (.directory = "${PWD}/buck2")' compile_commands.json | sponge compile_commands.json

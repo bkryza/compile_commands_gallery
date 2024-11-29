@@ -1,17 +1,4 @@
-BUILD_FLAGS ?=
-CLANG_TIDY_BIN ?= clang-tidy-19
-CLANG_UML_BIN ?= ~/devel/clang-uml/debug/src/clang-uml
-CLANG_UML_OPTS ?= 
-
-OS_UNAME := $(shell uname -s)
-ifeq ($(OS_UNAME),Linux)
-	SDKROOT ?= 
-else ifeq ($(OS_UNAME),Darwin)
-	SDKROOT ?= $(shell xcrun --show-sdk-path) 
-endif
-
-.DEFAULT_GOAL := all
-.PHONY: all
+include ../Makefile.ccj
 
 all:
 	SDKROOT=$(SDKROOT) $(CLANG_TIDY_BIN) src/hello.cc && \

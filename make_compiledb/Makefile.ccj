@@ -15,7 +15,12 @@ endif
 
 all:
 	make clean && \
+	echo "\`\`\`bash" && \
 	pip3 list | grep compiledb || true && \
+	echo "\`\`\`" && \
 	$(BUILD_FLAGS) compiledb make && \
+	echo "\`\`\`json" && \
+	cat compile_commands.json && \
+	echo "\`\`\`" && \
 	SDKROOT=$(SDKROOT) $(CLANG_TIDY_BIN) src/hello.cc && \
 	$(CLANG_UML_BIN) $(CLANG_UML_OPTS)

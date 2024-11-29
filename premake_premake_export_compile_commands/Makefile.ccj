@@ -1,22 +1,8 @@
-BUILD_FLAGS ?=
-CLANG_TIDY_BIN ?= clang-tidy-19
-CLANG_UML_BIN ?= ~/devel/clang-uml/debug/src/clang-uml
-CLANG_UML_OPTS ?= 
+include ../Makefile.ccj
 
-OS_UNAME := $(shell uname -s)
-ifeq ($(OS_UNAME),Linux)
-	SDKROOT ?= 
-else ifeq ($(OS_UNAME),Darwin)
-	SDKROOT ?= $(shell xcrun --show-sdk-path) 
-endif
+print_version_cmd = premake5 --version
 
-.DEFAULT_GOAL := all
-.PHONY: all
-
-all:
+generate_compdb = \
 	git clone https://github.com/tarruda/premake-export-compile-commands export-compile-commands || true && \
-	premake5 --version && \
 	$(BUILD_FLAGS) premake5 export-compile-commands && \
-	cp compile_commands/debug.json compile_commands.json && \
-	SDKROOT=$(SDKROOT) $(CLANG_TIDY_BIN) src/hello.cc && \
-	$(CLANG_UML_BIN) $(CLANG_UML_OPTS)
+	cp compile_commands/debug.json compile_commands.json

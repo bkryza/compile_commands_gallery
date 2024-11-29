@@ -1,21 +1,7 @@
-BUILD_FLAGS ?=
-CLANG_TIDY_BIN ?= clang-tidy-19
-CLANG_UML_BIN ?= ~/devel/clang-uml/debug/src/clang-uml
-CLANG_UML_OPTS ?= 
+include ../Makefile.ccj
 
-OS_UNAME := $(shell uname -s)
-ifeq ($(OS_UNAME),Linux)
-	SDKROOT ?= 
-else ifeq ($(OS_UNAME),Darwin)
-	SDKROOT ?= $(shell xcrun --show-sdk-path) 
-endif
+print_version_cmd = meson --version
 
+compdb_dir = builddir
 
-.DEFAULT_GOAL := all
-.PHONY: all
-
-all:
-	meson --version && \
-	$(BUILD_FLAGS) meson setup builddir && \
-	SDKROOT=$(SDKROOT) $(CLANG_TIDY_BIN) -p builddir src/hello.cc && \
-	$(CLANG_UML_BIN) -d builddir $(CLANG_UML_OPTS)
+generate_compdb = $(BUILD_FLAGS) meson setup $(compdb_dir)
