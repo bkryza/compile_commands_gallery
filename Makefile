@@ -24,7 +24,7 @@
 OS_UNAME := $(shell uname -s)
 
 ifeq ($(OS_UNAME),Linux)
-  CLANG_TIDY_BIN ?= clang-tidy-18
+  CLANG_TIDY_BIN ?= clang-tidy-19
   CLANG_UML_BIN ?= ~/devel/clang-uml/debug/src/clang-uml
 	CLANG_UML_OPTS ?= 
 else ifeq ($(OS_UNAME),Darwin)
@@ -33,6 +33,11 @@ else ifeq ($(OS_UNAME),Darwin)
 	CLANG_UML_OPTS ?= "--query-driver ."
 endif
 
+
+CC=/usr/bin/clang-19
+CXX=/usr/bin/clang++-19
+
+BUILD_FLAGS="CC=$(CC) CXX=$(CXX)"
 
 .PHONY: phony
 phony:
@@ -49,7 +54,7 @@ phony:
 		for dir in */; do \
 			if [ -f "$${dir}Makefile.ccj" ]; then \
 				echo "\n"; \
-				make -C . $$dir; \
+				make -C . BUILD_FLAGS=$(BUILD_FLAGS) $$dir; \
 			fi; \
 		done; \
 	else \

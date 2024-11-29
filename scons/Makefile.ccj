@@ -1,4 +1,5 @@
-CLANG_TIDY_BIN ?= clang-tidy-18
+BUILD_FLAGS ?=
+CLANG_TIDY_BIN ?= clang-tidy-19
 CLANG_UML_BIN ?= ~/devel/clang-uml/debug/src/clang-uml
 CLANG_UML_OPTS ?= 
 
@@ -14,6 +15,6 @@ endif
 
 all:
 	scons --version && \
-	scons compile_commands.json && \
+	$(BUILD_FLAGS) scons compile_commands.json && \
 	SDKROOT=$(SDKROOT) $(CLANG_TIDY_BIN) src/hello.cc && \
 	$(CLANG_UML_BIN) $(CLANG_UML_OPTS)

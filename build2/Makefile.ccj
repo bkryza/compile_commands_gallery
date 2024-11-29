@@ -1,3 +1,4 @@
+BUILD_FLAGS ?=
 CLANG_TIDY_BIN ?= clang-tidy-19
 CLANG_UML_BIN ?= ~/devel/clang-uml/debug/src/clang-uml
 CLANG_UML_OPTS ?= 

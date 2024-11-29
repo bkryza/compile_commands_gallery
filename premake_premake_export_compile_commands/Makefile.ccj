@@ -1,4 +1,5 @@
-CLANG_TIDY_BIN ?= clang-tidy-18
+BUILD_FLAGS ?=
+CLANG_TIDY_BIN ?= clang-tidy-19
 CLANG_UML_BIN ?= ~/devel/clang-uml/debug/src/clang-uml
 CLANG_UML_OPTS ?= 
 
@@ -15,7 +16,7 @@ endif
 all:
 	git clone https://github.com/tarruda/premake-export-compile-commands export-compile-commands || true && \
 	premake5 --version && \
-	premake5 export-compile-commands && \
+	$(BUILD_FLAGS) premake5 export-compile-commands && \
 	cp compile_commands/debug.json compile_commands.json && \
 	SDKROOT=$(SDKROOT) $(CLANG_TIDY_BIN) src/hello.cc && \
 	$(CLANG_UML_BIN) $(CLANG_UML_OPTS)

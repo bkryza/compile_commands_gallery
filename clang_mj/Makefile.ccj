@@ -1,10 +1,11 @@
-CLANG_TIDY_BIN ?= clang-tidy-18
+BUILD_FLAGS ?=
+CLANG_TIDY_BIN ?= clang-tidy-19
 CLANG_UML_BIN ?= ~/devel/clang-uml/debug/src/clang-uml
 CLANG_UML_OPTS ?= 
 
 OS_UNAME := $(shell uname -s)
 ifeq ($(OS_UNAME),Linux)
-  CLANGXX_BIN ?= clang++
+  CLANGXX_BIN ?= clang++-19
 	SDKROOT ?= 
 else ifeq ($(OS_UNAME),Darwin)
   CLANGXX_BIN ?= /opt/homebrew/opt/llvm/bin/clang++
