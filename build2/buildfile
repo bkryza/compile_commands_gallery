@@ -1,2 +1,1 @@
-exe{hello}: src/hello.cc
-
+./: {src/} manifest

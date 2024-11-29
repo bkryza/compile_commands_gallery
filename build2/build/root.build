@@ -1,0 +1,4 @@
+using cxx
+
+hxx{*}: extension = h
+cxx{*}: extension = cc

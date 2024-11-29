@@ -1,6 +1,5 @@
 *
 !*/
-build/
 build-configs/
 .bdep/
 !.gitignore
@@ -11,4 +10,3 @@ build-configs/
 !buildfile
 !manifest
 !Makefile.ccj
-
