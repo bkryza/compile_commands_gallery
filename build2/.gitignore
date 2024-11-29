@@ -1,0 +1,14 @@
+*
+!*/
+build/
+build-configs/
+.bdep/
+!.gitignore
+!.clang-uml
+!.clang-tidy
+!src/hello.h
+!src/hello.cc
+!buildfile
+!manifest
+!Makefile.ccj
+

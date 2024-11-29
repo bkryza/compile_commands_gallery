@@ -1,0 +1,5 @@
+: 1
+name: hello
+version: 0.1.0
+summary: hello C++ executable
+license: MIT
