@@ -35,6 +35,19 @@ local function debug(message)
 end
 
 --
+-- Basic utils
+--
+function contains(t, x)
+    found = false
+    for _, v in pairs(t) do
+        if v == x then
+            found = true
+        end
+    end
+    return found
+end
+
+--
 -- File system utils
 --
 local function shell(cmd)
@@ -157,6 +170,7 @@ print_version_cmd = nil
 compdb_dir = "."
 setup_cmd = nil
 generate_compdb_cmd = {}
+platforms = {"linux", "macos"}
 
 --
 -- Logic
@@ -176,7 +190,13 @@ local function generate_compile_commands(dir)
     compdb_dir = "."
     setup_cmd = nil
     generate_compdb_cmd = {}
+    platforms = {"linux", "macos"}
     dofile(dir .. "/" .. "gallery.lua")
+
+    if not contains(platforms, os_name) then
+        print_colorized("'" .. dir .. "'" .. " is not supported on " .. os_name .. " - skipping", color_red)
+        return
+    end
 
     -- print setup command
     if setup_cmd then
