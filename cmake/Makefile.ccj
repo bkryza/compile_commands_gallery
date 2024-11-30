@@ -1,9 +1,0 @@
-include ../Makefile.ccj
-
-build_system_files = CMakeLists.txt
-
-print_version_cmd = cmake --version
-
-compdb_dir = debug
-
-generate_compdb = $(BUILD_FLAGS) cmake -S . -B $(compdb_dir)

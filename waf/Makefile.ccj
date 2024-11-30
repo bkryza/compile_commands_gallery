@@ -1,9 +1,0 @@
-include ../Makefile.ccj
-
-build_system_files = wscript
-
-print_version_cmd = ~/devel/waf-2.1.4/waf --version
-
-compdb_dir = build
-
-generate_compdb = $(BUILD_FLAGS) ~/devel/waf-2.1.4/waf configure clangdb

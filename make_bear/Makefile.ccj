@@ -1,7 +1,0 @@
-include ../Makefile.ccj
-
-build_system_files = Makefile bear.json
-
-print_version_cmd = bear --version
-
-generate_compdb = $(BUILD_FLAGS) bear --config bear.json -- make clean hello

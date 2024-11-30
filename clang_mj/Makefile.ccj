@@ -1,7 +1,0 @@
-include ../Makefile.ccj
-
-print_version_cmd = $(CLANGXX_BIN) --version
-
-generate_compdb = \
-	$(CLANGXX_BIN) -MJ hello.o.json -Wall -std=c++17 -Isrc -o hello.o -c src/hello.cc && \
-	cat hello.o.json | sed 's/},$$/}/' | jq -s . | sponge compile_commands.json

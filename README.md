@@ -40,25 +40,17 @@ build system and plugin combination.
 ## Linux
 
 ```console
-$ make cmake
+$ ./make.lua cmake
 ```
 
 The target is just the name of the directory containing the specific project.
-
-By default, after generating the `compile_commands.json`, each target will try to run `clang-tidy` and `clang-uml`
-on that project to verify that these tools accept it. If you want to disable either of these tools just set the path to
-the tool executable to the `true` command, e.g.:
-
-```console
-$ CLANG_UML_BIN=true make make_bear
-```
 
 ## macos
 
 On macos, you might want to use Homebrew Clang instead XCode, in that case run the test like this:
 
 ```console
-CC=/opt/homebrew/opt/llvm/bin/clang CXX=/opt/homebrew/opt/llvm/bin/clang++ CLANG_TIDY_BIN=/opt/homebrew/Cellar/llvm/19.1.3/bin/clang-tidy make xmake 
+./make.lua cmake
 ```
 
 # License

@@ -1,5 +1,0 @@
-include ../Makefile.ccj
-
-all:
-	SDKROOT=$(SDKROOT) $(CLANG_TIDY_BIN) src/hello.cc && \
-	$(CLANG_UML_BIN) --query-driver clang++

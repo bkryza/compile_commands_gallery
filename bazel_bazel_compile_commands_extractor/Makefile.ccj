@@ -1,7 +1,0 @@
-include ../Makefile.ccj
-
-build_system_files = BUILD MODULE.bazel
-
-print_version_cmd = bazel --version
-
-generate_compdb = BAZEL_USE_CPP_ONLY_TOOLCHAIN=1 $(BUILD_FLAGS) bazel run :refresh_compile_commands

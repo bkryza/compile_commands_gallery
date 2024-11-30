@@ -111,6 +111,15 @@ build_flags = string.format("CC=%s CXX=%s", cc, cxx)
 sdk_root = ""
 
 --
+-- Build specific settings
+--
+build_system_files = {}
+print_version_cmd = nil
+compdb_dir = "."
+setup_cmd = nil
+generate_compdb_cmd = {}
+
+--
 -- Logic
 --
 local function generate_compile_commands(dir)
@@ -122,7 +131,12 @@ local function generate_compile_commands(dir)
     print_colorized(" " .. dir, c)
     print_colorized("============================", c)
 
-    -- load exhibit settings
+    -- load build settings
+    build_system_files = {}
+    print_version_cmd = nil
+    compdb_dir = "."
+    setup_cmd = nil
+    generate_compdb_cmd = {}
     dofile(dir .. "/" .. "gallery.lua")
 
     -- print setup command

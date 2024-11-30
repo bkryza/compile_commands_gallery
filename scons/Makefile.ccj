@@ -1,7 +1,0 @@
-include ../Makefile.ccj
-
-build_system_files = SConstruct
-
-print_version_cmd = scons --version
-
-generate_compdb = $(BUILD_FLAGS) scons compile_commands.json
