@@ -76,7 +76,7 @@ RUN wget https://www.fastbuild.org/downloads/v1.13/FASTBuild-Linux-x64-v1.13.zip
     mv fbuildworker /usr/bin && \
     chmod +x /usr/bin/fbuild && \
     chmod +x /usr/bin/fbuildworker && \
-    rm -rf FASTBuild-Linux-x64-v1.13.zip LICENSE.txt \
+    rm -rf FASTBuild-Linux-x64-v1.13.zip LICENSE.txt
 
 # Install meson
 RUN pip3 install meson
@@ -121,6 +121,6 @@ RUN dnf clean all
 ADD start.sh .
 RUN chmod +x start.sh
 
-ENV TERM xterm-256color
-#... more stuff
+ENV TERM=xterm-256color
+
 CMD ["bash", "-l"]
