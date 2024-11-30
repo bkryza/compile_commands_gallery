@@ -44,11 +44,13 @@ BUILD_FLAGS="CC=$(CC) CXX=$(CXX)"
 .PHONY: phony
 phony:
 
+COLOR_GREEN = 2
+
 %: phony
 	@if [ -d "$@" ]; then \
-		echo "\033[0;32m============================"; \
+		echo "$(shell tput setaf $(COLOR_GREEN))============================"; \
 		echo " $@ "; \
-		echo "============================\033[0m"; \
+		echo "============================$(shell tput sgr0)"; \
 		CLANG_TIDY_BIN=$(CLANG_TIDY_BIN) CLANG_TIDY_OPTS=$(CLANG_TIDY_OPTS) CLANG_UML_BIN=$(CLANG_UML_BIN) CLANG_UML_OPTS=$(CLANG_UML_OPTS) make -C $@ -s -f Makefile.ccj; \
 	elif [ "$@" = "Makefile" ]; then \
 		true; \

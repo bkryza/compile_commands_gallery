@@ -13,11 +13,15 @@ else ifeq ($(OS_UNAME),Darwin)
 	CLANGXX_BIN ?= /opt/homebrew/opt/llvm/bin/clang++
 endif
 
-BASH_BLOCK_START = echo "\033[0;33m\`\`\`bash\033[0m"
-BASH_BLOCK_END = echo "\033[0;33m\`\`\`\033[0m"
+COLOR_GREEN=2
+COLOR_YELLOW=3
+COLOR_MAGENTA=5
 
-JSON_BLOCK_START = echo "\033[0;33m\`\`\`json"
-JSON_BLOCK_END = echo "\`\`\`\033[0m"
+BASH_BLOCK_START = echo "$(shell tput setaf $(COLOR_YELLOW))**Version**\n\n\`\`\`bash"
+BASH_BLOCK_END = echo "\`\`\`$(shell tput sgr0)"
+
+JSON_BLOCK_START = echo "$(shell tput setaf $(COLOR_MAGENTA))**Result**\n\n\`\`\`json"
+JSON_BLOCK_END = echo "\`\`\`$(shell tput sgr0)"
 
 print_version = $(BASH_BLOCK_START) && echo "$$" $(1) && $(1) || true && $(BASH_BLOCK_END)
 print_compdb = 	$(JSON_BLOCK_START) && cat $(1)/compile_commands.json && $(JSON_BLOCK_END)
