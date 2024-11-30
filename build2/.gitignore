@@ -9,4 +9,4 @@ build-configs/
 !src/hello.cc
 !buildfile
 !manifest
-!Makefile.ccj
+!gallery.lua

@@ -8,5 +8,5 @@
 !BUILD
 !MODULE.bazel
 !WORKSPACE
-!Makefile.ccj
+!gallery.lua
 

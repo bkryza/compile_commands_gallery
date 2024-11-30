@@ -9,4 +9,4 @@ compile_commands.json
 !src/hello.h
 !src/hello.cc
 !wscript
-!Makefile.ccj
+!gallery.lua

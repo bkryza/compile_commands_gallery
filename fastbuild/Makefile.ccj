@@ -1,5 +1,7 @@
 include ../Makefile.ccj
 
+build_system_files = fbuild.bff
+
 print_version_cmd = fbuild -version
 
 generate_compdb = $(BUILD_FLAGS) fbuild -compdb

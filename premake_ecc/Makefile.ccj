@@ -1,5 +1,7 @@
 include ../Makefile.ccj
 
+build_system_files = premake5.lua
+
 setup_cmd = git clone git@github.com:MattBystrin/premake-ecc.git ecc || true
 
 print_version_cmd = premake5 --version

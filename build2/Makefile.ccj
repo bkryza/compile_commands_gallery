@@ -2,6 +2,8 @@ include ../Makefile.ccj
 
 BUILD2_B=~/devel/build2-build/build2-0.18.0-a.0.20241126062707.2164f1544357/build2/b
 
+build_system_files = build/bootstrap.build build/root.build src/buildfile buildfile manifest
+
 print_version_cmd = $(BUILD2_B) --version
 
 generate_compdb = \

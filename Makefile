@@ -24,20 +24,21 @@
 OS_UNAME := $(shell uname -s)
 
 ifeq ($(OS_UNAME),Linux)
-  CLANG_TIDY_BIN ?= clang-tidy-19
-  ClANG_TIDY_OPTS ?= "--quiet"
-  CLANG_UML_BIN ?= ~/devel/clang-uml/debug/src/clang-uml
-CLANG_UML_OPTS ?= "--quiet"
+  CC = /usr/bin/clang-19
+  CXX = /usr/bin/clang++-19
+  CLANG_TIDY_BIN ?= clang-tidy
+  ClANG_TIDY_OPTS ?= --quiet
+  CLANG_UML_BIN ?= clang-uml
+  CLANG_UML_OPTS ?= "--quiet"
 else ifeq ($(OS_UNAME),Darwin)
-  CLANG_TIDY_BIN ?= /opt/homebrew/Cellar/llvm/19.1.3/bin/clang-tidy
-  ClANG_TIDY_OPTS ?= "--quiet"
-  CLANG_UML_BIN ?= ~/devel/clang-uml/debug/src/clang-uml
+  LLVM_PREFIX = $(shell brew --prefix llvm)
+  CC = $(LLVM_PREFIX)/bin/clang
+  CXX = $(LLVM_PREFIX)/bin/clang++
+  CLANG_TIDY_BIN ?= $(LLVM_PREFIX)/bin/clang-tidy
+  ClANG_TIDY_OPTS ?= --quiet
+  CLANG_UML_BIN ?= clang-uml
   CLANG_UML_OPTS ?= "--quiet --query-driver ."
 endif
-
-
-CC=/usr/bin/clang-19
-CXX=/usr/bin/clang++-19
 
 BUILD_FLAGS="CC=$(CC) CXX=$(CXX)"
 
@@ -48,9 +49,9 @@ COLOR_GREEN = 2
 
 %: phony
 	@if [ -d "$@" ]; then \
-		echo "$(shell tput setaf $(COLOR_GREEN))============================"; \
-		echo " $@ "; \
-		echo "============================$(shell tput sgr0)"; \
+		printf "$(shell tput setaf $(COLOR_GREEN))============================\n"; \
+		printf " $@ \n"; \
+		printf "============================$(shell tput sgr0)\n"; \
 		CLANG_TIDY_BIN=$(CLANG_TIDY_BIN) CLANG_TIDY_OPTS=$(CLANG_TIDY_OPTS) CLANG_UML_BIN=$(CLANG_UML_BIN) CLANG_UML_OPTS=$(CLANG_UML_OPTS) make -C $@ -s -f Makefile.ccj; \
 	elif [ "$@" = "Makefile" ]; then \
 		true; \

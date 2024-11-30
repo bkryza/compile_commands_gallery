@@ -8,4 +8,4 @@ docs.
 !src/hello.h
 !src/hello.cc
 !build.ninja
-!Makefile.ccj
+!gallery.lua

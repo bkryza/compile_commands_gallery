@@ -1,7 +1,7 @@
 require "export-compile-commands"
 
 workspace "hello"
-   configurations { "Debug", "Release" }
+   configurations { "Debug"}
 
 project "hello"
    kind "ConsoleApp"
@@ -13,7 +13,3 @@ project "hello"
    filter "configurations:Debug"
       defines { "DEBUG" }
       symbols "On"
-
-   filter "configurations:Release"
-      defines { "NDEBUG" }
-      optimize "On"

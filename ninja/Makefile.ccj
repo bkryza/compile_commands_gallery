@@ -1,5 +1,7 @@
 include ../Makefile.ccj
 
+build_system_files = build.ninja
+
 print_version_cmd = ninja --version
 
 generate_compdb = $(BUILD_FLAGS) ninja -t compdb > compile_commands.json

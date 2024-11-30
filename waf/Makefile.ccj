@@ -1,5 +1,7 @@
 include ../Makefile.ccj
 
+build_system_files = wscript
+
 print_version_cmd = ~/devel/waf-2.1.4/waf --version
 
 compdb_dir = build

@@ -1,5 +1,7 @@
 include ../Makefile.ccj
 
+build_system_files = Makefile
+
 print_version_cmd = pip3 list | grep compiledb || true
 
-generate_compdb = $(BUILD_FLAGS) compiledb make
+generate_compdb = $(BUILD_FLAGS) compiledb make hello

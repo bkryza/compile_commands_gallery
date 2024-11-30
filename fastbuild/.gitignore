@@ -7,5 +7,5 @@ diagrams
 !.clang-tidy
 !src/hello.h
 !src/hello.cc
-!Makefile.ccj
+!gallery.lua
 !fbuild.bff

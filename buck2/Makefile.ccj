@@ -1,5 +1,7 @@
 include ../Makefile.ccj
 
+build_system_files = BUCK
+
 print_version_cmd = buck2 --version
 
 generate_compdb = \

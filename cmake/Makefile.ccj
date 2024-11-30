@@ -1,5 +1,7 @@
 include ../Makefile.ccj
 
+build_system_files = CMakeLists.txt
+
 print_version_cmd = cmake --version
 
 compdb_dir = debug

@@ -8,4 +8,4 @@ docs
 !src/hello.h
 !src/hello.cc
 !hello.qbs
-!Makefile.ccj
+!gallery.lua

@@ -1,5 +1,7 @@
 include ../Makefile.ccj
 
+build_system_files = xmake.lua
+
 print_version_cmd = xmake --version
 
 generate_compdb = $(BUILD_FLAGS) xmake project -k compile_commands

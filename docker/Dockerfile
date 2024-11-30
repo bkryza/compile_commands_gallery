@@ -3,7 +3,7 @@ LABEL org.opencontainers.image.authors="bkryza@gmail.com"
 LABEL org.opencontainers.image.documentation="https://github.com/bkryza/compile_commands_gallery"
 
 # Install the basics
-RUN dnf -y install wget make clang clang-tidy python3-pip which moreutils
+RUN dnf -y install wget make clang clang-tidy python3-pip which moreutils jq git lua
 
 # Install clang-uml
 RUN wget https://github.com/bkryza/clang-uml/releases/download/0.5.6/clang-uml-0.5.6-1.fc41.x86_64.rpm && \
@@ -45,12 +45,20 @@ RUN dnf -y install qbs
 RUN pip3 install scons
 
 # Install Waf
-
+RUN wget https://waf.io/waf-2.1.4.tar.bz2 && \
+    tar jxf waf-2.1.4.tar.bz2 && \
+    cd waf-2.1.4 && \
+    python waf-light --tools=clang_compilation_database && \
+    chmod +x waf && \
+    cp waf /usr/bin && \
+    cd .. && \
+    rm -rf waf-2.1.4 waf-2.1.4.tar.bz2
 
 # Install xmake
 RUN dnf -y install xmake
 
-RUN dnf -y install jq git
+ADD start.sh .
+RUN chmod +x start.sh
 
 ENV TERM xterm-256color
 #... more stuff

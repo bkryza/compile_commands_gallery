@@ -6,5 +6,4 @@
 !src/hello.h
 !src/hello.cc
 !Makefile
-!Makefile.ccj
-
+!gallery.lua

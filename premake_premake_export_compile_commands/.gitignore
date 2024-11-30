@@ -10,4 +10,4 @@ export-compile-commands
 !src/hello.h
 !src/hello.cc
 !premake5.lua
-!Makefile.ccj
+!gallery.lua
