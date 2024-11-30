@@ -63,6 +63,16 @@ local function execute_in_dir(dir, args)
 end
 
 --
+-- Detect OS
+--
+os_name = "linux"
+if package.config:sub(1,1) == "\\" then
+  os_name = "windows"
+elseif shell("uname -s") == "Darwin" then
+  os_name = "macos"
+end
+
+--
 -- Terminal output utils
 --
 COLOR_RED=1
@@ -109,6 +119,11 @@ clang_uml_opts = os.getenv("CLANG_UML_OPTS") or "--quiet"
 build_flags = string.format("CC=%s CXX=%s", cc, cxx)
 
 sdk_root = ""
+
+if os_name == "macos" then
+  sdk_root = "SDK_ROOT=" .. shell("xcrun --show-sdk-path")
+  clang_uml_opts = "--quiet --query-driver ."
+end
 
 --
 -- Build specific settings
