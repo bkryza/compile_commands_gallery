@@ -92,6 +92,17 @@ local color_magenta = shell("tput setaf 5")
 local color_cyan = shell("tput setaf 6")
 local color_white = shell("tput setaf 7")
 
+if os_name == "windows" then
+    color_end = ""
+    color_red = ""
+    color_green = ""
+    color_yellow = ""
+    color_blue = ""
+    color_magenta = ""
+    color_cyan = ""
+    color_white = ""
+end
+
 local function start_color(color)
     shell("tput setaf " .. color)
 end
@@ -123,6 +134,10 @@ sdk_root = ""
 if os_name == "macos" then
   sdk_root = "SDK_ROOT=" .. shell("xcrun --show-sdk-path")
   clang_uml_opts = "--quiet --query-driver ."
+end
+
+if os_name == "windows" then
+  build_flags = ""
 end
 
 --
