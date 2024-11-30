@@ -1,0 +1,5 @@
+{
+  "compilation": {
+    "compilers_to_exclude": ["/usr/lib/llvm-19/bin/clang"]
+  }
+}

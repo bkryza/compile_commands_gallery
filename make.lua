@@ -134,6 +134,8 @@ local function generate_compile_commands(dir)
         print_colorized("$ " .. setup_cmd, c)
         print_colorized("```", c)
         print_colorized("", c)
+
+        execute_in_dir(dir, {setup_cmd})
     end
 
     -- print version
