@@ -83,14 +83,14 @@ COLOR_MAGENTA=5
 COLOR_CYAN=6
 COLOR_WHITE=7
 
-local color_end = shell("tput sgr0")
-local color_red = shell("tput setaf 1")
-local color_green = shell("tput setaf 2")
-local color_yellow = shell("tput setaf 3")
-local color_blue = shell("tput setaf 4")
-local color_magenta = shell("tput setaf 5")
-local color_cyan = shell("tput setaf 6")
-local color_white = shell("tput setaf 7")
+local color_end
+local color_red
+local color_green
+local color_yellow
+local color_blue
+local color_magenta
+local color_cyan
+local color_white
 
 if os_name == "windows" then
     color_end = ""
@@ -101,6 +101,15 @@ if os_name == "windows" then
     color_magenta = ""
     color_cyan = ""
     color_white = ""
+else
+    color_end = shell("tput sgr0")
+    color_red = shell("tput setaf 1")
+    color_green = shell("tput setaf 2")
+    color_yellow = shell("tput setaf 3")
+    color_blue = shell("tput setaf 4")
+    color_magenta = shell("tput setaf 5")
+    color_cyan = shell("tput setaf 6")
+    color_white = shell("tput setaf 7")
 end
 
 local function start_color(color)
