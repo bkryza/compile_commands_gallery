@@ -1,0 +1,9 @@
+*
+!*/
+build
+!.gitignore
+!.clang-uml
+!.clang-tidy
+!src/hello.h
+!src/hello.cc
+!gallery.lua
