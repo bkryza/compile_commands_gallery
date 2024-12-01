@@ -1,0 +1,12 @@
+*
+.cache
+!*/
+!.gitignore
+!.clang-uml
+!.clang-tidy
+!src/hello.h
+!src/hello.cc
+!Makefile
+!gallery.lua
+!.vscode/settings.json
+

@@ -22,6 +22,7 @@ The list of examples currently contains:
   * [Bear](https://github.com/rizsotto/Bear) - [`make_bear`](./make_bear)
   * [compiledb](https://github.com/nickdiego/compiledb) - [`make_compiledb`](./make_compiledb)
   * [compile_flags.txt](https://clang.llvm.org/docs/JSONCompilationDatabase.html#alternatives) - [`make_compile_flags`](./make_compile_flags)
+  * [VS Code Makefile Tools](https://github.com/Microsoft/vscode-makefile-tools) - [`make_vscode_makefile_tools`](./make_vscode_makefile_tools)
 * [Meson Build](https://mesonbuild.com/) - [`mesonbuild`](./mesonbuild)
 * [Ninja](https://ninja-build.org/) - [`ninja`](./ninja)
 * [Premake](https://premake.github.io/)
