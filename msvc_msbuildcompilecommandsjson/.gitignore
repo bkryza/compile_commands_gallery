@@ -1,0 +1,16 @@
+*
+x64/
+hello/
+diagrams
+MSBuildCompileCommandsJson
+CompileCommandsJson.dll
+!*/
+!.gitignore
+!.clang-uml
+!.clang-tidy
+!src/hello.h
+!src/hello.cc
+!hello.sln
+!hello.vcxproj
+!hello.vcxproj.filters
+!gallery.lua
