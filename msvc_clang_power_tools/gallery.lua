@@ -1,3 +1,4 @@
+platforms = {"msvc"}
 build_system_files = {"meson.build"}
 print_version_cmd = "meson --version"
 compdb_dir = "builddir"
