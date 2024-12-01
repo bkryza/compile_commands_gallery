@@ -34,6 +34,8 @@ The list of examples currently contains:
 * [Qbs](https://qbs.io/) - [`qbs`](./qbs)
 * [SCons](https://scons.org/) - [`scons`](./scons)
 * [Waf](https://waf.io/) - [`waf`](./waf)
+* [XCode](https://developer.apple.com/xcode/)
+  * [xcpretty](https://github.com/xcpretty/xcpretty) - [`xcpretty`](./xcpretty)
 * [xmake](https://xmake.io) - [`xmake`](./xmake)
 
 
