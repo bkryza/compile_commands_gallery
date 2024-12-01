@@ -1,0 +1,5 @@
+platforms = {}
+build_system_files = {}
+print_version_cmd = ""
+compdb_dir = "."
+generate_compdb_cmd = ""
