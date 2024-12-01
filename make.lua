@@ -137,6 +137,15 @@ local function print_colorized(message, color)
     print(color .. message .. color_end)
 end
 
+local function print_colorized_cmds(cmds, color)
+    if type(cmds) == "table" then
+        for i, cmd in pairs(cmds) do
+           print_colorized("$ " .. cmd, c)
+        end
+    else
+        print_colorized("$ " .. cmds, c)
+    end
+end
 
 --
 -- Global settings
@@ -199,16 +208,22 @@ local function generate_compile_commands(dir)
     end
 
     -- print setup command
-    if setup_cmd then
+    if type(setup_cmd) == "table" or setup_cmd then
         c = color_white
         print_colorized("**Setup**", c)
         print_colorized("", c)
         print_colorized("```bash", c)
-        print_colorized("$ " .. setup_cmd, c)
+        print_colorized_cmds(setup_cmd, c)
         print_colorized("```", c)
         print_colorized("", c)
 
-        execute_in_dir(dir, {setup_cmd})
+        if type(setup_cmd) == "table" then
+            for i, cmd in pairs(setup_cmd) do
+                execute_in_dir(dir, {build_flags, cmd})
+            end
+        else
+            execute_in_dir(dir, {build_flags, setup_cmd})
+        end
     end
 
     -- print version
@@ -246,17 +261,12 @@ local function generate_compile_commands(dir)
     print_colorized("", c);
     print_colorized("```bash", c);
 
-    if type(generate_compdb_cmd) == "table" then
-        for i, cmd in pairs(generate_compdb_cmd) do
-           print_colorized("$ " .. cmd, c)
-        end
-    else
-        print_colorized("$ " .. generate_compdb_cmd, c)
-    end
+    print_colorized_cmds(generate_compdb_cmd, c)
 
     print_colorized("", c)
 
     print_colorized("```", c);
+
     if type(generate_compdb_cmd) == "table" then
         for i, cmd in pairs(generate_compdb_cmd) do
             execute_in_dir(dir, {build_flags, cmd})
