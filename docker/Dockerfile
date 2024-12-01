@@ -116,6 +116,14 @@ RUN wget https://waf.io/waf-2.1.4.tar.bz2 && \
 RUN dnf -y install xmake && \
     echo "export XMAKE_ROOT=y" >> /root/.bashrc
 
+# Install kiron1/bazel-compile-commands
+RUN git clone https://github.com/kiron1/bazel-compile-commands && \
+    cd bazel-compile-commands && \
+    bazel build --config=gnu //bcc:bazel-compile-commands && \
+    cp bazel-bin/bcc/bazel-compile-commands /usr/bin/ && \
+    cd .. && \
+    rm -rf bazel-compile-commands
+
 RUN dnf clean all
 
 ADD start.sh .
@@ -123,4 +131,4 @@ RUN chmod +x start.sh
 
 ENV TERM=xterm-256color
 
-CMD ["bash", "-l"]
+CMD ["bash", "-c", "./start.sh && cd compile_commands_gallery && bash -l"]
