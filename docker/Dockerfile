@@ -3,12 +3,15 @@ LABEL org.opencontainers.image.authors="bkryza@gmail.com"
 LABEL org.opencontainers.image.documentation="https://github.com/bkryza/compile_commands_gallery"
 
 # Install the basics
-RUN dnf -y install wget make clang clang-tidy python3-pip which moreutils jq git lua unzip zstd vim
+RUN dnf -y update && \
+    dnf -y install wget make clang clang-tidy python3-pip which moreutils jq git lua unzip zstd vim cowsay && \
+    dnf clean all
 
 # Install clang-uml
 RUN wget https://github.com/bkryza/clang-uml/releases/download/0.5.6/clang-uml-0.5.6-1.fc41.x86_64.rpm && \
     dnf -y install ./clang-uml-0.5.6-1.fc41.x86_64.rpm && \
-    rm clang-uml-0.5.6-1.fc41.x86_64.rpm
+    rm clang-uml-0.5.6-1.fc41.x86_64.rpm && \
+    dnf clean all
 
 # Install cmake
 RUN wget https://github.com/Kitware/CMake/releases/download/v3.31.1/cmake-3.31.1-linux-x86_64.tar.gz && \
@@ -28,6 +31,15 @@ RUN git clone https://github.com/bfgroup/b2 && \
 RUN wget https://github.com/bazelbuild/bazel/releases/download/7.4.1/bazel-7.4.1-linux-x86_64 && \
     mv bazel-7.4.1-linux-x86_64 /usr/bin/bazel && \
     chmod +x /usr/bin/bazel
+
+# Install kiron1/bazel-compile-commands
+RUN git clone https://github.com/kiron1/bazel-compile-commands && \
+    cd bazel-compile-commands && \
+    bazel build --config=gnu //bcc:bazel-compile-commands && \
+    cp bazel-bin/bcc/bazel-compile-commands /usr/bin/ && \
+    cd .. && \
+    rm -rf bazel-compile-commands && \
+    rm -rf /root/.cache/bazel
 
 # Install Buck2
 RUN wget https://github.com/facebook/buck2/releases/download/2024-11-15/buck2-x86_64-unknown-linux-gnu.zst && \
@@ -50,24 +62,11 @@ RUN wget https://stage.build2.org/1/build2/build2-0.18.0-a.0.20241126062707.2164
     rm -rf build2-0.18.0-a.0.20241126062707.2164f1544357 build2-0.18.0-a.0.20241126062707.2164f1544357.tar.gz
 
 # Install Bear
-RUN dnf -y install bear
+RUN dnf -y install bear && \
+    dnf clean all
 
 # Install compiledb
 RUN pip3 install compiledb
-
-# Install Evoke (TODO: compile_commands.json only works in daemon mode - not usable in Docker?)
-#RUN dnf install boost-devel && \
-#    mkdir /usr/include/nlohmann && \
-#    wget -P /usr/include/nlohmann https://github.com/nlohmann/json/releases/download/v3.11.3/json.hpp && \
-#    git clone --recursive https://github.com/dascandy/evoke.git && \
-#    cd evoke && \
-#    cmake -S . -B build && \
-#    cd build && \
-#    make -j12 && \
-#    make install && \
-#    cd .. && \
-#    cd .. && \
-#    rm -rf evoke
 
 # Install FASTBuild
 RUN wget https://www.fastbuild.org/downloads/v1.13/FASTBuild-Linux-x64-v1.13.zip && \
@@ -82,25 +81,19 @@ RUN wget https://www.fastbuild.org/downloads/v1.13/FASTBuild-Linux-x64-v1.13.zip
 RUN pip3 install meson
 
 # Install ninja
-RUN dnf -y install ninja-build
+RUN dnf -y install ninja-build && \
+    dnf clean all
 
 # Install Premake
-RUN dnf -y install premake
+RUN dnf -y install premake && \
+    dnf clean all
 
 # Install Qbs
-RUN dnf -y install qbs
+RUN dnf -y install qbs && \
+    dnf clean all
 
 # Install SCons
 RUN pip3 install scons
-
-# Install Tundra (TODO: No support for compile_commands.json?)
-#RUN git clone --recursive https://github.com/deplinenoise/tundra && \
-#    cd tundra && \
-#    git checkout 93b93dba91d099815e320bd9032b672b35327798 && \
-#    make -j12 && \
-#    make install && \
-#    cd .. && \
-#    rm -rf tundra
 
 # Install Waf
 RUN wget https://waf.io/waf-2.1.4.tar.bz2 && \
@@ -114,18 +107,10 @@ RUN wget https://waf.io/waf-2.1.4.tar.bz2 && \
 
 # Install xmake
 RUN dnf -y install xmake && \
+    dnf clean all && \
     echo "export XMAKE_ROOT=y" >> /root/.bashrc
 
-# Install kiron1/bazel-compile-commands
-RUN git clone https://github.com/kiron1/bazel-compile-commands && \
-    cd bazel-compile-commands && \
-    bazel build --config=gnu //bcc:bazel-compile-commands && \
-    cp bazel-bin/bcc/bazel-compile-commands /usr/bin/ && \
-    cd .. && \
-    rm -rf bazel-compile-commands
-
-RUN dnf clean all
-
+# Setup start cmd
 ADD start.sh .
 RUN chmod +x start.sh
 

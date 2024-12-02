@@ -1,4 +1,4 @@
-platforms = { "macos" }
+platforms = {"macos"}
 build_system_files = {}
 print_version_cmd = "xcodebuild -version"
 compdb_dir = "."

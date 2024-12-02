@@ -179,7 +179,11 @@ print_version_cmd = nil
 compdb_dir = "."
 setup_cmd = nil
 generate_compdb_cmd = {}
-platforms = {"linux", "macos"}
+platforms = {os_name}
+
+if os_name == "macos" then
+    platforms = {"linux", "macos"}
+end
 
 --
 -- Logic
