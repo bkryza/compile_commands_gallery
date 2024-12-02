@@ -42,12 +42,19 @@ The list of examples currently contains:
 
 
 # Generating compile commands
-The project contains a top-level [Makefile](./Makefile), which can be used to generate compile commands for specific
-build system and plugin combination.
+The project contains a top-level Lua script - [make.lua](./make.lua) - which will setup the build system and generate
+the compilation database, based on properties in `<subdirectory>/gallery.lua`. For example for `cmake` the properties are:
+
+```lua
+build_system_files = {"CMakeLists.txt"}
+print_version_cmd = "cmake --version"
+compdb_dir = "debug"
+generate_compdb_cmd = "cmake -S . -B " .. compdb_dir
+```
 
 ## Directly on host
 
-Most examples can be run on Linux, some on macos and MSVC specific on Windows.
+Most examples can be run on `Linux`, some on `macos` and `MSVC`-specific on Windows.
 
 ```console
 $ ./make.lua cmake
@@ -61,16 +68,19 @@ If you'd like to try any of the build systems without installing anything, just 
 $ docker run --rm -it bkryza/compile-commands-gallery:20241202
 ```
 
-Then either enter a specific subdirectory or run:
+Then either run:
+
 ```console
 $ ./make.lua <subdirectory>
 ```
+
+or enter a specific subdirectory and setup the build system manually.
 
 ## Example output
 
 For instance, in case of `cmake` you should see the following output:
 
-```
+````
 [root@a1dc70ba3f0b compile_commands_gallery]# ./make.lua cmake
 ============================
  cmake
@@ -82,14 +92,14 @@ $ cmake --version
 cmake version 3.31.1
 
 CMake suite maintained and supported by Kitware (kitware.com/cmake).
-\`\`\`
+```
 
 **Instructions**
 
 Create the following files:
 
 `CMakeLists.txt`:
-\`\`\`
+```
 cmake_minimum_required(VERSION 3.15)
 
 project(hello)
@@ -97,15 +107,15 @@ project(hello)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 add_executable(hello src/hello.cc)
-\`\`\`
+```
 
 
 Execute the following command:
 
-\`\`\`bash
+```bash
 $ cmake -S . -B debug
 
-\`\`\`
+```
 -- The C compiler identification is Clang 19.1.4
 -- The CXX compiler identification is Clang 19.1.4
 -- Detecting C compiler ABI info
@@ -124,7 +134,7 @@ $ cmake -S . -B debug
 
 **Result**
 
-\`\`\`json
+```json
 [
 {
   "directory": "/compile_commands_gallery/cmake/debug",
@@ -133,9 +143,9 @@ $ cmake -S . -B debug
   "output": "CMakeFiles/hello.dir/src/hello.cc.o"
 }
 ]
-\`\`\`
-4188 warnings generated.
 ```
+4188 warnings generated.
+````
 
 
 # License

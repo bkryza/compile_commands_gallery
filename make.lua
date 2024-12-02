@@ -179,11 +179,15 @@ print_version_cmd = nil
 compdb_dir = "."
 setup_cmd = nil
 generate_compdb_cmd = {}
-platforms = {os_name}
+default_platforms = {os_name}
 
 if os_name == "macos" then
     platforms = {"linux", "macos"}
+    default_platforms = {"linux", "macos"}
 end
+
+platforms = default_platforms
+
 
 --
 -- Logic
@@ -203,7 +207,7 @@ local function generate_compile_commands(dir)
     compdb_dir = "."
     setup_cmd = nil
     generate_compdb_cmd = {}
-    platforms = {"linux", "macos"}
+    platforms = default_platforms
     dofile(dir .. "/" .. "gallery.lua")
 
     if not contains(platforms, os_name) then
